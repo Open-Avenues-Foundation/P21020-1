@@ -1,0 +1,23 @@
+{
+  "name": "p21020-1",
+  "version": "1.0.0",
+  "description": "Privy CRM Dashboard Project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Open-Avenues-Foundation/P21020-1.git"
+  },
+  "author": "UHart Bootcamp Group 1",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Open-Avenues-Foundation/P21020-1/issues"
+  },
+  "homepage": "https://github.com/Open-Avenues-Foundation/P21020-1#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mysql": "^2.18.1"
+  }
+}
