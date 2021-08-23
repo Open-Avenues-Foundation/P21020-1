@@ -3,7 +3,7 @@
 const express = require('express')
 const app = express()
 // MySQL
-const mysql = require('mysql')
+const mysql = require('mysql2')
 
 
 // MySQL Create Connection
