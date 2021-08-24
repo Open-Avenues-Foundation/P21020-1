@@ -8,14 +8,14 @@ const customers = (connection, Sequelize) => {
     email: {
       type: Sequelize.STRING
     },
-    fristName: {
+    firstName: {
       type: Sequelize.STRING
     },
     lastName: {
       type: Sequelize.STRING
     },
     phone: {
-      type: Sequelize.STRING(10)
+      type: Sequelize.STRING
     },
     city: {
       type: Sequelize.STRING

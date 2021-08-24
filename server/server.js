@@ -1,30 +1,23 @@
-// Requiring Packages
-// Express
 const express = require('express')
 const app = express()
-// MySQL
-const mysql = require('mysql2')
+const models = require('./models')
+const initRoutes = require('./routes/customer.routes')
+global.__basedir = __dirname
 
-
-// MySQL Create Connection
-const db = mysql.createConnection({
-  host: 'localhost',
-  user: 'root',
-  password: 'password',
-  database: 'customers'
-});
-// MySQL Connect
-db.connect()
-
+app.use(express.urlencoded({ extended: true }))
+initRoutes(app)
 
 // Index Route
 app.get('/', (req, res) => {
   res.send('Hello World!')
 })
 
+models.customers.sync({ force: true }).then(() => {
+  console.log("Drop and re-sync db.");
+});
 
 // Setting up Port to listen on
 const port = 3000
 app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`)
+  console.log(`Running at localhost:${port}`)
 })
