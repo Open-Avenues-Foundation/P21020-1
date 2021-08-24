@@ -3,6 +3,8 @@ const model = require('../../models')
 const fs = require('fs')
 const csv = require('fast-csv')
 
+const sanitizeEmails = require('../../public/javascript/sanitize')
+
 
 // Upload and save CSV file to database
 const upload = async (req, res) => {
@@ -23,6 +25,8 @@ const upload = async (req, res) => {
         customers.push(row)
       })
       .on('end', () => {
+        // Sanitize emails
+        customers = sanitizeEmails(customers)
         // console.log(customers)
         model.customers.bulkCreate(customers)
           .then(() => {
