@@ -1,4 +1,4 @@
-const model = require('../../models')
+const Customer = require('../../models/Customer')
 
 const fs = require('fs')
 const csv = require('fast-csv')
@@ -28,7 +28,7 @@ const upload = async (req, res) => {
         // Sanitize emails
         customers = sanitizeEmails(customers)
         // console.log(customers)
-        model.customers.bulkCreate(customers)
+        Customer.bulkCreate(customers)
           .then(() => {
             res.status(200).send({
               message:
@@ -53,7 +53,7 @@ const upload = async (req, res) => {
 
 // Get all Cusotmers
 const getCustomers = (req, res) => {
-  model.customers.findAll()
+  Customer.findAll()
     .then(data => {
       res.send(data)
     })
