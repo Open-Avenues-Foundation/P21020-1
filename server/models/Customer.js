@@ -31,19 +31,19 @@ const Customer = db.define('customer', {
   lastOrderDate: {
     type: Sequelize.STRING
   }
-}, {
-  hooks: {
-    beforeBulkCreate: (customers, options) => {
-      for (const customer of customers) {
-        console.log('HELLO')
-      }
-    },
-    afterBulkCreate: () => {
-      console.log('afterBulkCreate')
-    }
-  }
 });
 
+// Model Hooks
+Customer.beforeBulkCreate((customers) => {
+  for (const customer of customers) {
+    customer.sanitizeEmail()
+  }
+})
+
+// Instance Methods
+Customer.prototype.sanitizeEmail = function () {
+  this.email = this.email.replace(/[&\/\\#,+()$~%'":*?<>{}\s]/g, '').replace('..', '')
+}
 
 module.exports = Customer
 
