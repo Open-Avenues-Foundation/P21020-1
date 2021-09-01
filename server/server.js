@@ -1,30 +1,29 @@
-// Requiring Packages
-// Express
 const express = require('express')
 const app = express()
-// MySQL
-const mysql = require('mysql')
+// const models = require('./models')
+const db = require('./config/database')
+const Customer = require('./models/Customer')
+const initRoutes = require('./routes/customer-routes')
+global.__basedir = __dirname
 
+app.use(express.urlencoded({ extended: true }))
+initRoutes(app)
 
-// MySQL Create Connection
-const db = mysql.createConnection({
-  host: 'localhost',
-  user: 'root',
-  password: 'password',
-  database: 'customers'
-});
-// MySQL Connect
-db.connect()
-
+db.authenticate()
+  .then(() => console.log('connected'))
+  .catch((err) => console.log('error!'))
 
 // Index Route
 app.get('/', (req, res) => {
   res.send('Hello World!')
 })
 
+Customer.sync({ force: true }).then(() => {
+  console.log("Drop and re-sync db.");
+});
 
 // Setting up Port to listen on
 const port = 3000
 app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`)
+  console.log(`Running at localhost:${port}`)
 })
