@@ -42,7 +42,7 @@ Customer.beforeBulkCreate((customers) => {
 
 // Instance Methods
 Customer.prototype.sanitizeEmail = function () {
-  this.email = this.email.replace(/[&\/\\#,+()$~%'":*?<>{}\s]/g, '').replace('..', '')
+  this.email = this.email.replace(/[&\/\\#,+()$~%'":*?<>{}\s]/g, '').replace(/\.{2,}/g, '')
 }
 
 module.exports = Customer
