@@ -37,13 +37,19 @@ const Customer = db.define('customer', {
 Customer.beforeBulkCreate((customers) => {
   for (const customer of customers) {
     customer.sanitizeEmail()
+    customer.sanitizePhone()
   }
 })
 
 // Instance Methods
+// Sanitize Email
 Customer.prototype.sanitizeEmail = function () {
   this.email = this.email.replace(/[&\/\\#,+()$~%'":*?<>{}\s]/g, '').replace(/\.{2,}/g, '')
 }
 
-module.exports = Customer
+// Sanitize Phone (for use with twilio API)
+Customer.prototype.sanitizePhone = function () {
+  this.phone = `1${this.phone.replace(/[()-]/g, '')}`
+}
 
+module.exports = Customer

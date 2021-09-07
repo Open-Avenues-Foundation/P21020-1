@@ -4,6 +4,8 @@ global.__basedir = __dirname
 const db = require('./config/database')
 const models = require('./models')
 
+require('dotenv').config()
+
 // Require Routes
 const customerRoutes = require('./routes/customer-routes')
 const csvRoutes = require('./routes/csv-routes')
@@ -18,8 +20,8 @@ db.authenticate()
   .catch((err) => console.log('error!'))
 
 // Reset Customer Table
-models.Customer.sync().then(() => {
-  console.log('Syncing DB');
+db.sync({ force: true }).then(() => {
+  console.log('All models dropped and re-synced');
 });
 
 // Routes

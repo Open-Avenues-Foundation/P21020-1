@@ -3,7 +3,7 @@ CREATE TABLE messages (
   text VARCHAR(255),
   customerId INT,
   sent BOOLEAN NOT NULL DEFAULT 0,
-  dateSent DATE,
+  dateSent DATETIME,
   createdAt DATETIME DEFAULT NOW(),
   updatedAt DATETIME DEFAULT NOW() ON UPDATE NOW(),
   PRIMARY KEY(id)

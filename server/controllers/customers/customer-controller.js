@@ -1,4 +1,5 @@
 const models = require('../../models')
+const { sendTwilioSMS } = require('../../utilities/send-sms')
 
 // Get all Cusotmers
 const getCustomers = (req, res) => {
@@ -11,20 +12,31 @@ const getCustomers = (req, res) => {
 
 // Send Message
 const sendMessage = async (req, res) => {
-  const { id } = req.params
-  const customer = await models.Customer.findOne({ where: { id } })
+  try {
+    const { id } = req.params
+    const { message } = req.body
+    const customer = await models.Customer.findOne({ where: { id } })
 
-  console.log(req.body)
+    if (!customer || !message) {
+      res.status(404).send('Customer not found OR Message not provided')
+    }
 
-  if (customer && req.body.message) {
+    // Save message to messages table
     const newMessage = await models.Message.create({
-      text: req.body.message,
+      text: message,
       customerId: id,
+      dateSent: new Date(Date.now()).toISOString(),
+      sent: 1
     })
 
-    return res.status(200).send(newMessage)
-  } else {
-    res.status(404).send('Customer or message not found')
+    // Call Twilio API
+    sendTwilioSMS(customer.phone, message)
+
+    return res.status(200).send(`'${message}' sent to: ${customer.firstName} ${customer.lastName}`)
+
+  } catch (err) {
+    console.log(err)
+    return res.status(500).send('Server Error')
   }
 }
 
