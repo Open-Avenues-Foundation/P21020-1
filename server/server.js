@@ -1,28 +1,31 @@
 const express = require('express')
 const app = express()
-// const models = require('./models')
-const db = require('./config/database')
-const Customer = require('./models/Customer')
-const initRoutes = require('./routes/customer-routes')
 global.__basedir = __dirname
+const db = require('./config/database')
+const models = require('./models')
 
+// Require Routes
+const customerRoutes = require('./routes/customer-routes')
+const csvRoutes = require('./routes/csv-routes')
+
+// App Config
 app.use(express.urlencoded({ extended: true }))
-initRoutes(app)
 
+// DB Test
 db.authenticate()
   .then(() => console.log('connected'))
   .catch((err) => console.log('error!'))
 
-// Index Route
-app.get('/', (req, res) => {
-  res.send('Hello World!')
-})
-
-Customer.sync({ force: true }).then(() => {
+// Reset Customer Table
+models.Customer.sync({ force: true }).then(() => {
   console.log("Drop and re-sync db.");
 });
 
-// Setting up Port to listen on
+// Routes
+app.use('/csv', csvRoutes)
+app.use('/customers', customerRoutes)
+
+// Port
 const port = 3000
 app.listen(port, () => {
   console.log(`Running at localhost:${port}`)

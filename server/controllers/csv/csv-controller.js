@@ -1,8 +1,8 @@
-const Customer = require('../../models/Customer')
+const models = require('../../models')
 const handleCSV = require('../../utilities/handle-csv')
 
 // Upload and save CSV file to database
-const upload = async (req, res) => {
+const uploadCSV = async (req, res) => {
   try {
     if (req.file == undefined) {
       return res.status(400).send("Please upload a CSV file!")
@@ -17,13 +17,4 @@ const upload = async (req, res) => {
   }
 }
 
-// Get all Cusotmers
-const getCustomers = (req, res) => {
-  Customer.findAll()
-    .then(data => res.send(data))
-    .catch(err => {
-      res.status(500).send(err.message || "Some error occured while retrieving customers")
-    })
-}
-
-module.exports = { upload, getCustomers }
+module.exports = { uploadCSV }

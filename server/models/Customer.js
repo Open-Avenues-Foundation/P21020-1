@@ -31,7 +31,7 @@ const Customer = db.define('customer', {
   lastOrderDate: {
     type: Sequelize.STRING
   }
-});
+}, { paranoid: true });
 
 // Model Hooks
 Customer.beforeBulkCreate((customers) => {

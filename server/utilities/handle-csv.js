@@ -1,4 +1,4 @@
-const Customer = require('../models/Customer')
+const models = require('../models')
 const fs = require('fs')
 const csv = require('fast-csv')
 
@@ -14,7 +14,7 @@ const handleCSV = (path, req, res) => {
       customers.push(row)
     })
     .on('end', () => {
-      Customer.bulkCreate(customers)
+      models.Customer.bulkCreate(customers)
         .then(() => {
           return res.status(200).send({
             message:

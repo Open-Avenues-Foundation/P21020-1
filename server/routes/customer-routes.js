@@ -1,13 +1,7 @@
 const express = require('express')
 const router = express.Router()
-const csvController = require('../controllers/customers/csv-customers.js')
-const upload = require('../middleware/upload')
+const { getCustomers } = require('../controllers/customers/customer-controller')
 
-let routes = (app) => {
-  router.post('/upload', upload.single('file'), csvController.upload);
-  router.get('/customers', csvController.getCustomers);
+router.get('/', getCustomers);
 
-  app.use('/api/csv', router)
-}
-
-module.exports = routes;
+module.exports = router;
