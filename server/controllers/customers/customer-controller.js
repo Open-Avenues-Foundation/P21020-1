@@ -9,5 +9,24 @@ const getCustomers = (req, res) => {
     })
 }
 
+// Send Message
+const sendMessage = async (req, res) => {
+  const { id } = req.params
+  const customer = await models.Customer.findOne({ where: { id } })
 
-module.exports = { getCustomers }
+  console.log(req.body)
+
+  if (customer && req.body.message) {
+    const newMessage = await models.Message.create({
+      text: req.body.message,
+      customerId: id,
+    })
+
+    return res.status(200).send(newMessage)
+  } else {
+    res.status(404).send('Customer or message not found')
+  }
+}
+
+
+module.exports = { getCustomers, sendMessage }

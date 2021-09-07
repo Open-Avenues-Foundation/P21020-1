@@ -10,6 +10,7 @@ const csvRoutes = require('./routes/csv-routes')
 
 // App Config
 app.use(express.urlencoded({ extended: true }))
+app.use(express.json())
 
 // DB Test
 db.authenticate()
@@ -17,8 +18,8 @@ db.authenticate()
   .catch((err) => console.log('error!'))
 
 // Reset Customer Table
-models.Customer.sync({ force: true }).then(() => {
-  console.log("Drop and re-sync db.");
+models.Customer.sync().then(() => {
+  console.log('Syncing DB');
 });
 
 // Routes

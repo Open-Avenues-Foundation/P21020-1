@@ -3,7 +3,9 @@ CREATE TABLE messages (
   text VARCHAR(255),
   customerId INT,
   sent BOOLEAN NOT NULL DEFAULT 0,
-  dateSent DATE
+  dateSent DATE,
+  createdAt DATETIME DEFAULT NOW(),
+  updatedAt DATETIME DEFAULT NOW() ON UPDATE NOW(),
   PRIMARY KEY(id)
   FOREIGN KEY (customerId) REFERENCES customers(id)
 )
