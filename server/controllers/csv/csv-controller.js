@@ -1,4 +1,3 @@
-const models = require('../../models')
 const handleCSV = require('../../utilities/handle-csv')
 
 // Upload and save CSV file to database

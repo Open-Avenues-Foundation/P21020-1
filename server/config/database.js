@@ -1,6 +1,10 @@
 const Sequelize = require('sequelize')
+const allConfigs = require('./sequelize')
 
-module.exports = new Sequelize('privy', 'root', 'password', {
-  host: 'localhost',
-  dialect: 'mysql'
+const enviroment = process.env.NODE_ENV || 'development'
+const { database, username, password, dialect, host } = allConfigs[enviroment]
+
+module.exports = new Sequelize(database, username, password, {
+  host,
+  dialect,
 });
