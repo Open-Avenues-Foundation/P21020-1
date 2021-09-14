@@ -9,7 +9,9 @@ const uploadCSV = async (req, res) => {
 
     let path = __basedir + "/resources/static/assets/uploads/" + req.file.filename
 
-    handleCSV(path, req, res)
+    const results = await handleCSV(path, req.file.filename)
+
+    return res.status(results.status).send(results.message)
 
   } catch (error) {
     return res.status(500).send("Could not upload the file: " + req.file.originalname)
