@@ -10,17 +10,18 @@ const getCustomers = async () => {
 const sendMessage = async (id, message) => {
   try {
     const customer = await models.Customer.findOne({ where: { id } })
+    if (!customer) throw new Error('Cannot send message. Customer not found!')
 
-    // Save message to messages table
+    // Call Twilio API
+    await sendTwilioSMS(customer.phone, message)
+
+    // Insert Message to Database
     await models.Message.create({
       text: message,
       customerId: id,
       dateSent: new Date(Date.now()).toISOString(),
       sent: 1
     })
-
-    // Call Twilio API
-    sendTwilioSMS(customer.phone, message)
 
     return {
       customer,
@@ -31,11 +32,10 @@ const sendMessage = async (id, message) => {
   } catch (error) {
     return {
       error: true,
-      message: error,
-      status: 500
+      message: `Cannot send text. ${error.message}`,
+      status: 404
     }
   }
 }
-
 
 module.exports = { getCustomers, sendMessage }
