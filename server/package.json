@@ -4,7 +4,9 @@
   "description": "Privy CRM Dashboard Project",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "nodemon server.js",
+    "dev:migrate": "./node_modules/.bin/sequelize db:migrate --env development --config ./config/sequelize.js",
+    "dev:reset": "./node_modules/.bin/sequelize db:migrate:undo:all --env development --config ./config/seqielize.js"
   },
   "repository": {
     "type": "git",
@@ -21,6 +23,11 @@
     "fast-csv": "^4.3.6",
     "multer": "^1.4.3",
     "mysql2": "^2.3.0",
-    "sequelize": "^6.6.5"
+    "sequelize": "^6.6.5",
+    "sequelize-cli": "^6.2.0",
+    "twilio": "^3.67.1"
+  },
+  "devDependencies": {
+    "dotenv": "^10.0.0"
   }
 }

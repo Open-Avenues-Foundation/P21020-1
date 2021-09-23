@@ -1,6 +1,5 @@
 const multer = require('multer')
 
-
 // Multer filter to only accept csv files
 const csvFilter = (req, file, cb) => {
   if (file.mimetype.includes('csv')) {

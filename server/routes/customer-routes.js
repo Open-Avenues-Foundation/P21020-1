@@ -1,13 +1,29 @@
 const express = require('express')
 const router = express.Router()
-const csvController = require('../controllers/customers/csv-customers.js')
-const upload = require('../middleware/upload')
+const { getCustomers, sendMessage } = require('../controllers/customers/customer-controller')
 
-let routes = (app) => {
-  router.post('/upload', upload.single('file'), csvController.upload);
-  router.get('/customers', csvController.getCustomers);
+// Get All Customers
+router.get('/', async (req, res) => {
 
-  app.use('/api/csv', router)
-}
+  try {
+    const allCustomers = await getCustomers()
+    return res.send(allCustomers)
+  } catch (error) {
+    return res.status(400).send('Cannot find customers!')
+  }
 
-module.exports = routes;
+});
+
+// Send a Message to A Specific Customer
+router.post('/message/:id', async (req, res) => {
+  const { id } = req.params
+  const { message } = req.body
+
+  if (!message) return res.status(404).send('Please provide a message to send')
+
+  const results = await sendMessage(id, message)
+  return res.status(results.status).send(results.message)
+
+})
+
+module.exports = router;

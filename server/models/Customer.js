@@ -8,13 +8,19 @@ const Customer = db.define('customer', {
     primaryKey: true
   },
   email: {
-    type: Sequelize.STRING
+    type: Sequelize.STRING,
+    allowNull: false,
+    validate: {
+      isEmail: true
+    }
   },
   firstName: {
-    type: Sequelize.STRING
+    type: Sequelize.STRING,
+    allowNull: false,
   },
   lastName: {
-    type: Sequelize.STRING
+    type: Sequelize.STRING,
+    allowNull: false,
   },
   phone: {
     type: Sequelize.STRING
@@ -31,19 +37,25 @@ const Customer = db.define('customer', {
   lastOrderDate: {
     type: Sequelize.STRING
   }
-});
+}, { paranoid: true });
 
 // Model Hooks
 Customer.beforeBulkCreate((customers) => {
   for (const customer of customers) {
     customer.sanitizeEmail()
+    customer.sanitizePhone()
   }
 })
 
 // Instance Methods
+// Sanitize Email
 Customer.prototype.sanitizeEmail = function () {
   this.email = this.email.replace(/[&\/\\#,+()$~%'":*?<>{}\s]/g, '').replace(/\.{2,}/g, '')
 }
 
-module.exports = Customer
+// Sanitize Phone (for use with twilio API)
+Customer.prototype.sanitizePhone = function () {
+  this.phone = `1${this.phone.replace(/[()-]/g, '')}`
+}
 
+module.exports = Customer
