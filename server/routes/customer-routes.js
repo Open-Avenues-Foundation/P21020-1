@@ -2,6 +2,7 @@ const express = require('express')
 const router = express.Router()
 const { getCustomers, sendMessage } = require('../controllers/customers/customer-controller')
 
+// Get All Customers
 router.get('/', async (req, res) => {
 
   try {
@@ -13,7 +14,7 @@ router.get('/', async (req, res) => {
 
 });
 
-
+// Send a Message to A Specific Customer
 router.post('/message/:id', async (req, res) => {
   const { id } = req.params
   const { message } = req.body

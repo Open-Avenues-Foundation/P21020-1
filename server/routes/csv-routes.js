@@ -3,7 +3,7 @@ const router = express.Router()
 const { uploadCSV } = require('../controllers/csv/csv-controller.js')
 const upload = require('../middleware/upload')
 
-
+// Upload a CSV file with customer data
 router.post('/upload', upload.single('file'), async (req, res) => {
   if (req.file == undefined) return res.status(400).send("Please upload a CSV file!")
 

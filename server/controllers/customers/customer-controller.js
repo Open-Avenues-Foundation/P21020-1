@@ -10,7 +10,7 @@ const getCustomers = async () => {
 const sendMessage = async (id, message) => {
   try {
     const customer = await models.Customer.findOne({ where: { id } })
-    if (!customer) throw new Error('Cannot send message. Customer not found!')
+    if (!customer) throw new Error('Customer not found!')
 
     // Call Twilio API
     await sendTwilioSMS(customer.phone, message)
@@ -25,7 +25,7 @@ const sendMessage = async (id, message) => {
 
     return {
       customer,
-      message: `Text send to ${customer.firstName} ${customer.lastName}`,
+      message: `Text sent to ${customer.firstName} ${customer.lastName}`,
       status: 200,
     }
 
