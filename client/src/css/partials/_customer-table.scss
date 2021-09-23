@@ -1,0 +1,35 @@
+.customers-table{
+  background-color: darkgray;
+  border: 1px ;
+  max-width: 900px;
+
+  .row{
+    min-height: 50px;
+    border: 1px solid slategray;
+    padding: 1rem;
+  }
+
+  &.header{
+    // color: blue;
+    text-align: center;
+    font-size: 2rem;
+    background-color: whitesmoke;
+  }
+
+  &.body{
+    display: flex;
+    flex-direction: column;
+
+    &.item{
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+
+      &.info{
+        display: flex;
+        flex-direction: column;
+      }
+    }
+  }
+
+}

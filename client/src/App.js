@@ -1,10 +1,11 @@
 import React from "react";
 import CustomerTable from "./components/CustomerTable";
+import './css/main.css'
 
 function App() {
   return (
     <div>
-      <h1>Hello this is my App</h1>
+      <h1>Privy Table</h1>
       <CustomerTable />
     </div>
   );
