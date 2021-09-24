@@ -17,12 +17,14 @@ body {
   background-color: darkgray;
   border: 1px;
   max-width: 900px;
+  margin: 0 auto;
 }
 
 .customers-table .row {
   min-height: 50px;
   border: 1px solid slategray;
   padding: 1rem;
+  width: 100%;
 }
 
 .customers-table.header {
@@ -52,6 +54,7 @@ body {
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
+  margin: 0;
 }
 
 .customers-table.body.item.info {
@@ -62,5 +65,13 @@ body {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
+  cursor: pointer;
+}
+
+#upload-csv-form {
+  margin: 1rem auto;
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
 }
 /*# sourceMappingURL=main.css.map */
