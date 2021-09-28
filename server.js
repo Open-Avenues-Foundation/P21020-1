@@ -24,7 +24,7 @@ db.authenticate()
   .catch((err) => console.log('error!'))
 
 // Reset Customer Table
-db.sync({ force: true }).then(() => {
+db.sync().then(() => {
   console.log('Database Tables Dropped & Synced');
 });
 

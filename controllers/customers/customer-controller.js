@@ -6,8 +6,8 @@ const getCustomers = async () => {
   return await models.Customer.findAll()
 }
 
-// Send Message
-const sendMessage = async (id, message) => {
+// Send Message to Single Customer
+const sendMessageToSingleCustomer = async (id, message) => {
   try {
     const customer = await models.Customer.findOne({ where: { id } })
     if (!customer) throw new Error('Customer not found!')
@@ -38,4 +38,16 @@ const sendMessage = async (id, message) => {
   }
 }
 
-module.exports = { getCustomers, sendMessage }
+// Sned Message to Multiple Customers
+const sendMessageToMultipleCustomers = async (message) => {
+  try {
+    const allCustomers = await models.Customer.findAll()
+
+    return allCustomers
+
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+module.exports = { getCustomers, sendMessageToSingleCustomer, sendMessageToMultipleCustomers }
