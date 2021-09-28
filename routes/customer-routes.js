@@ -17,9 +17,13 @@ router.get('/', async (req, res) => {
 
 // Send a Message to all Selected Customers
 router.post('/message', async (req, res) => {
-  // const allCustomers = await models.Customer.findAll()
-  const results = await sendMessageToMultipleCustomers()
-  res.send(results)
+  const { message, selectedCustomers } = req.body
+
+  if (!message) return res.status(404).send('Please provide a message to send')
+
+  const results = await sendMessageToMultipleCustomers(message, selectedCustomers)
+  res.status(results.status).send(results.message)
+
 })
 
 // Send a Message to A Specific Customer
