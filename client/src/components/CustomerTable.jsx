@@ -16,6 +16,7 @@ const CustomerTable = () => {
     setCustomers(fetch.data)
   }
 
+
   return (
     <div className="customers-table">
       <div className="customers-table header row">Customers</div>

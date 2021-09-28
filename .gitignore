@@ -1,5 +1,5 @@
 node_modules
 .DS_Store
 .env
-server/resources/static/assets/uploads/*
+/resources/static/assets/uploads/*
 CRM-example.png
