@@ -1,15 +1,29 @@
+// Packages
 import React from "react";
-import CustomerTable from "./components/CustomerTable";
-import UploadCSVForm from "./components/UploadCSVForm";
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+import 'react-bootstrap-table-next/dist/react-bootstrap-table2.min.css'
+import 'react-bootstrap-table2-paginator/dist/react-bootstrap-table2-paginator.min.css';
+
+// Components
+import HomePage from "./pages/HomePage";
+import MessagePage from "./pages/MessagePage";
+import NoMatch from "./pages/NoMatch";
+
+// Css
 import './css/main.css'
 
+// Main App
 function App() {
   return (
-    <div>
-      <h1 style={{ textAlign: 'center' }}>Privy Table</h1>
-      <UploadCSVForm />
-      <CustomerTable />
-    </div>
+    <React.Fragment>
+      <Router>
+        <Switch>
+          <Route exact path="/" component={HomePage} />
+          <Route path="/message" component={MessagePage} />
+          <Route component={NoMatch} />
+        </Switch>
+      </Router>
+    </React.Fragment>
   );
 }
 
