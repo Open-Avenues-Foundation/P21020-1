@@ -27,15 +27,10 @@ const UploadCSVForm = () => {
   }
 
   return (
-    // <form id="upload-csv-form">
-    //   <input type="file" id="upload-csv-file" onChange={uploadFile} />
-    //   <button type="button" className="btn upload-btn" onClick={sendFile}>Upload</button>
-    // </form>
     <Form className="mb-3 d-flec d-inline-flex ">
       <Button variant="primary" onClick={sendFile}>Upload</Button>
       <Form.File id="upload-csv-file" label={fileName} onChange={uploadFile} custom />
     </Form>
-
   )
 }
 
