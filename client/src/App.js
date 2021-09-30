@@ -6,12 +6,9 @@ import Layout from "./components/Layout";
 // Components
 import HomePage from "./pages/HomePage";
 import MessagePage from "./pages/MessagePage";
-import NoMatch from "./pages/NoMatch";
+import ErrorPage from "./pages/ErrorPage";
 
-// Css
-import './css/main.css'
 
-// Main App
 function App() {
   return (
     <React.Fragment>
@@ -20,7 +17,7 @@ function App() {
           <Switch>
             <Route exact path="/" component={HomePage} />
             <Route path="/message" component={MessagePage} />
-            <Route component={NoMatch} />
+            <Route component={ErrorPage} />
           </Switch>
         </Router>
       </Layout>

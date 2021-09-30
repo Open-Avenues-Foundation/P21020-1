@@ -6,9 +6,9 @@ import MessageTextBox from '../components/MessageTextBox';
 
 const MessagePage = () => {
   const data = useLocation()
-  const { selectedCustomers } = data.state
+  // const { selectedCustomers } = data.state
 
-  console.log(selectedCustomers)
+  // console.log(selectedCustomers)
 
   return (
     <React.Fragment>

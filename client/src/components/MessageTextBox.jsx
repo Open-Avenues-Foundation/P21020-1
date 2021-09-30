@@ -21,7 +21,7 @@ const MessageTextBox = () => {
       >
         <TextField
           id="outlined-multiline-flexible"
-          label="Multiline"
+          label="Message"
           multiline
           maxRows={4}
         />

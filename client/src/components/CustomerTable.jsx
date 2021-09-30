@@ -4,7 +4,6 @@ import { DataGrid } from '@mui/x-data-grid'
 import { Button } from '@mui/material'
 import { Link } from 'react-router-dom'
 
-
 const CustomerTable = () => {
   const [customers, setCustomers] = useState([])
   const [selectedCustomers, setSelectedCustomers] = useState([])
