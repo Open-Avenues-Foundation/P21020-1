@@ -1,11 +1,24 @@
-import { Box, TextField } from '@mui/material';
 import React, { useState } from 'react';
+import { Box, TextField, Button } from '@mui/material';
+import axios from 'axios'
 
-const MessageTextBox = () => {
+const MessageTextBox = (props) => {
   const [messageText, setMessageText] = useState('')
 
   const handleChange = e => {
     setMessageText(e.target.value)
+  }
+
+  const sendMessage = () => {
+    const data = { message: messageText, selectedCustomers: props.selectedCustomers }
+    console.log(data)
+    axios.post('http://localhost:1337/api/customers/message', data)
+      .then(res => {
+        console.log(res.statusText)
+      })
+      .catch(err => {
+        console.log('Error sending text message', err)
+      })
   }
 
 
@@ -14,18 +27,22 @@ const MessageTextBox = () => {
       <Box
         component="form"
         sx={{
-          '& .MuiTextField-root': { m: 1, width: '25ch' },
+          '& .MuiTextField-root': { m: 1, width: '50ch' },
         }}
         noValidate
         autoComplete="off"
       >
         <TextField
-          id="outlined-multiline-flexible"
-          label="Message"
+          id="filled-multiline-static"
+          label="Craft Text Message"
           multiline
-          maxRows={4}
+          rows={4}
+          variant="filled"
+          onChange={handleChange}
+          value={messageText}
         />
       </Box>
+      <Button variant="contained" onClick={sendMessage}>Send Message</Button>
     </React.Fragment >
   );
 };
