@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import BootstrapTable from "react-bootstrap-table-next";
-import paginationFactory from "react-bootstrap-table2-paginator"
-
+import { DataGrid } from '@mui/x-data-grid'
+import { Button } from '@mui/material'
+import { Link } from 'react-router-dom'
 
 const CustomerTable = () => {
   const [customers, setCustomers] = useState([])
+  const [selectedCustomers, setSelectedCustomers] = useState([])
 
   useEffect(() => {
     fetchCustomers()
@@ -18,65 +19,46 @@ const CustomerTable = () => {
     setCustomers(fetch.data)
   }
 
+  const updatedSelectedCustomers = (selection) => {
+    // Filter customers by only currently selected rows by id
+    const result = customers.filter(({ id }) => selection.includes(id));
+    console.log(result)
+    setSelectedCustomers(result)
+  }
+
   const columns = [
-    {
-      dataField: 'firstName',
-      text: 'First Name'
-    },
-    {
-      dataField: 'lastName',
-      text: 'Last Name'
-    },
-    {
-      dataField: 'lastOrderDate',
-      text: 'Last Order Date'
-    },
-    {
-      dataField: 'lastOrderPrice',
-      text: 'Last Order Price'
-    },
-    {
-      dataField: 'state',
-      text: 'State'
-    }
+    { field: 'id', headerName: 'ID', flex: 'shrink' },
+    { field: 'firstName', headerName: 'First Name', flex: 1 },
+    { field: 'lastName', headerName: 'Last Name', flex: 1 },
+    { field: 'lastOrderDate', headerName: 'Last Order Date', flex: 1, type: 'date' },
+    { field: 'lastOrderPrice', headerName: 'Last Order Price', flex: 1, type: 'number' }
+
   ]
 
-  const customTotal = (from, to, size) => (
-    <span className="react-bootstrap-table-pagination-total">
-      Showing {from} to {to} of {size} Results
-    </span>
-  );
-
-
-  const options = {
-    paginationSize: 4,
-    pageStartIndex: 0,
-    // alwaysShowAllBtns: true, // Always show next and previous button
-    // withFirstAndLast: false, // Hide the going to First and Last page button
-    // hideSizePerPage: true, // Hide the sizePerPage dropdown always
-    // hidePageListOnlyOnePage: true, // Hide the pagination list when only one page
-    firstPageText: 'First',
-    prePageText: 'Back',
-    nextPageText: 'Next',
-    lastPageText: 'Last',
-    nextPageTitle: 'First page',
-    prePageTitle: 'Pre page',
-    firstPageTitle: 'Next page',
-    lastPageTitle: 'Last page',
-    showTotal: true,
-    paginationTotalRenderer: customTotal,
-    disablePageTitle: true,
-    sizePerPageList: [{
-      text: '5', value: 5
-    }, {
-      text: '10', value: 10
-    }, {
-      text: 'All', value: customers.length
-    }],// A numeric array is also available. the purpose of above example is custom the text
-  };
-
+  // Render Table Component
   return (
-    <BootstrapTable keyField='id' data={customers} columns={columns} pagination={paginationFactory(options)} />
+    <React.Fragment>
+      <div style={{ height: 600, width: '100%' }}>
+        <div style={{ display: 'flex', height: '100%' }}>
+          <div style={{ flexGrow: 1 }}>
+            <DataGrid
+              checkboxSelection
+              rows={customers}
+              columns={columns}
+              onSelectionModelChange={updatedSelectedCustomers}
+            />
+          </div>
+        </div>
+        <Link
+          style={{ textDecoration: 'none' }}
+          to={{
+            pathname: '/message',
+            state: { selectedCustomers }
+          }}>
+          <Button variant="outlined" sx={{ mt: 3 }}>Craft Message</Button>
+        </Link>
+      </div>
+    </React.Fragment>
   )
 }
 

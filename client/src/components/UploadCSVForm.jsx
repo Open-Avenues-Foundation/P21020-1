@@ -1,14 +1,16 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { Form, Button } from 'react-bootstrap'
+// import Form from 'react-bootstrap/Form'
+import { Button, Box } from '@mui/material'
+
 
 const UploadCSVForm = () => {
   const [selectedFile, setSelectedFile] = useState(null)
-  const [fileName, setFileName] = useState('Upload CSV File')
+  const [fileNameDisplay, setFileNameDisplay] = useState('Upload CSV File')
 
   const uploadFile = e => {
     console.log(e.target.files[0])
-    setFileName(e.target.files[0].name)
+    setFileNameDisplay(e.target.files[0].name)
     setSelectedFile(e.target.files[0])
   }
 
@@ -31,14 +33,27 @@ const UploadCSVForm = () => {
     //   <input type="file" id="upload-csv-file" onChange={uploadFile} />
     //   <button type="button" className="btn upload-btn" onClick={sendFile}>Upload</button>
     // </form>
-    <Form className="mb-3 d-flec d-inline-flex ">
-      <Button variant="primary" onClick={sendFile}>Upload</Button>
-      <Form.File id="upload-csv-file" label={fileName} onChange={uploadFile} custom />
-    </Form>
+    <React.Fragment>
+      <Box sx={{ display: 'flex', mb: '1rem' }}>
+        <input
+          style={{ display: "none" }}
+          id="upload-csv-file"
+          type="file"
+          onChange={uploadFile}
+        />
+        <label htmlFor="upload-csv-file">
+          <Button variant="outlined" color="primary" component="span" style={{ borderTopRightRadius: '0px', borderBottomRightRadius: '0px' }}>
+            Browse
+          </Button>
+        </label>
+        <Box sx={{ width: '25%', bgcolor: 'lightgray', display: 'flex', alignItems: 'center', pl: '1rem', border: '3px solid lightgray', typography: 'subtitle2' }}>{fileNameDisplay}</Box>
+        <Button style={{ borderTopLeftRadius: '0px', borderBottomLeftRadius: '0px' }} variant="contained" disableElevation onClick={sendFile}>Upload</Button>
+      </Box>
+    </React.Fragment>
+
 
   )
 }
 
 
 export default UploadCSVForm;
-
