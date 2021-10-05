@@ -16,6 +16,10 @@ const customerMessage = db.define('customerMessage', {
   messageId: {
     type: Sequelize.INTEGER,
     references: { model: Message, key: 'id' }
+  },
+  dateSent: {
+    type: Sequelize.DATEONLY,
+    allowNull: true
   }
 }, { paranoid: true })
 

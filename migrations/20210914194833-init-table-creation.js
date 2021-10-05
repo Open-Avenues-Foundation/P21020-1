@@ -52,19 +52,6 @@ module.exports = {
       text: {
         type: Sequelize.STRING
       },
-      customerId: {
-        type: Sequelize.INTEGER,
-        reference: { model: 'customers', key: 'id' }
-      },
-      sent: {
-        type: Sequelize.BOOLEAN,
-        allowNull: false,
-        defaultValue: false
-      },
-      dateSent: {
-        type: Sequelize.DATEONLY,
-        allowNull: true
-      },
       createdAt: { type: Sequelize.DATE, defaultValue: Sequelize.literal('NOW()') },
       updatedAt: { type: Sequelize.DATE, defaultValue: Sequelize.literal('NOW() ON UPDATE NOW()') },
       deletedAt: { type: Sequelize.DATE }
@@ -83,6 +70,9 @@ module.exports = {
       messageId: {
         type: Sequelize.INTEGER,
         references: { model: 'messages', key: 'id' }
+      },
+      dateSent: {
+        type: Sequelize.DATEONLY,
       },
       createdAt: { type: Sequelize.DATE, defaultValue: Sequelize.literal('NOW()') },
       updatedAt: { type: Sequelize.DATE, defaultValue: Sequelize.literal('NOW() ON UPDATE NOW()') },

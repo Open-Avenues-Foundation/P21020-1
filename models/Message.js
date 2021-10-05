@@ -10,19 +10,6 @@ const Message = db.define('message', {
   },
   text: {
     type: Sequelize.STRING
-  },
-  customerId: {
-    type: Sequelize.INTEGER,
-    reference: { model: Customer, key: 'id' }
-  },
-  sent: {
-    type: Sequelize.BOOLEAN,
-    allowNull: false,
-    defaultValue: false
-  },
-  dateSent: {
-    type: Sequelize.DATEONLY,
-    allowNull: true
   }
 }, { paranoid: true })
 

@@ -10,6 +10,7 @@ require('dotenv').config()
 // Require Routes
 const customerRoutes = require('./routes/customer-routes')
 const csvRoutes = require('./routes/csv-routes')
+const messageRoutes = require('./routes/message-routes')
 
 // App Config
 app.use(cors())
@@ -31,6 +32,7 @@ db.sync({ force: true }).then(() => {
 // Routes
 app.use('/api/csv', csvRoutes)
 app.use('/api/customers', customerRoutes)
+app.use('/api/message', messageRoutes)
 app.all('*', (req, res) => res.sendFile(path.resolve(__dirname, 'client/public', 'index.html')))
 
 
