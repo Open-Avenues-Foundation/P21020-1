@@ -11,8 +11,7 @@ router.post('/', async (req, res) => {
   const newMessage = await saveMessage(message)
   const results = await sendMessage(newMessage, selectedCustomers)
 
-  res.status(results.status).send(results.message)
-
+  res.status(results.status).send(results)
 })
 
 

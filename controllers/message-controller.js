@@ -1,5 +1,5 @@
 const models = require('../models')
-const { sendMultipleTwilioSMS } = require('../utilities/send-sms')
+const { sendTwilioSMS, sendMultipleTwilioSMS } = require('../utilities/send-sms')
 
 const saveMessage = async (message) => {
   return await models.Message.create({
@@ -11,9 +11,14 @@ const saveMessage = async (message) => {
 const sendMessage = async (message, customers) => {
   try {
     const { text, id } = message
+    const errors = []
 
     for (const customer of customers) {
-      await sendMultipleTwilioSMS([customer], text)
+      const twilioResult = await sendMultipleTwilioSMS([customer], text)
+      if (twilioResult[0].status === 'rejected') {
+        customer.errorMsg = twilioResult[0].reason
+        errors.push(customer)
+      }
       await models.customerMessage.create({
         customerId: customer.id,
         messageId: id,
@@ -22,7 +27,8 @@ const sendMessage = async (message, customers) => {
     }
 
     return {
-      message: `Text sent to all customers`,
+      message: `Text sent to customers`,
+      errors: errors,
       status: 200,
     }
 

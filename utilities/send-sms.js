@@ -16,13 +16,29 @@ const sendSingleTwilioSMS = async (customerPhone, message) => {
 
 // Send a message to multiple customers using Twilio Messaging Service 
 const sendMultipleTwilioSMS = async (customers, message) => {
-  return await Promise.all(customers.map(async (customer) => {
+  return await Promise.allSettled(customers.map(async (customer) => {
     return await client.messages.create({
       body: message,
       from: process.env.TWILIO_MESSAGING_SERVICE_SID,
       to: `+${customer.phone}`
     })
   }))
+}
+
+const sendTwilioSMS = async (customers, message) => {
+  customers.map(async (customer) => {
+    client.messages.create({
+      body: message,
+      from: process.env.TWILIO_MESSAGING_SERVICE_SID,
+      to: `+${customer.phone}`
+    })
+      .then(messages => {
+        return messages
+      })
+      .catch(err => {
+        return err
+      })
+  })
 }
 
 // Send a message to multiple customers using Twilio Notify Service 
@@ -40,4 +56,4 @@ const sendMultipleTwilioSMS2 = async (customers, message) => {
 
 
 
-module.exports = { sendSingleTwilioSMS, sendMultipleTwilioSMS, sendMultipleTwilioSMS2 }
+module.exports = { sendSingleTwilioSMS, sendMultipleTwilioSMS, sendMultipleTwilioSMS2, sendTwilioSMS }
