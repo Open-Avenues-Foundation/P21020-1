@@ -3,6 +3,7 @@ import axios from "axios";
 import { DataGrid } from '@mui/x-data-grid'
 import { Button } from '@mui/material'
 import { Link } from 'react-router-dom'
+import { Box } from "@mui/system";
 
 const CustomerTable = () => {
   const [customers, setCustomers] = useState([])
@@ -49,16 +50,26 @@ const CustomerTable = () => {
             />
           </div>
         </div>
-        <Link
-          style={{ textDecoration: 'none' }}
-          to={{
-            pathname: '/message',
-            state: { selectedCustomers }
-          }}>
-          <Button variant="outlined" sx={{ mt: 3 }}>Craft Message</Button>
-        </Link>
+        <Box sx={{ display: 'flex', gap: 2 }} >
+          <Link
+            style={{ textDecoration: 'none' }}
+            to={{
+              pathname: '/message',
+              state: { selectedCustomers }
+            }}>
+            <Button variant="outlined" sx={{ mt: 3 }}>Craft Message</Button>
+          </Link>
+          <Link
+            style={{ textDecoration: 'none' }}
+            to={{
+              pathname: '/message-logs'
+            }}>
+            <Button variant="outlined" sx={{ mt: 3 }}>Message Log</Button>
+          </Link>
+        </Box>
+
       </div>
-    </React.Fragment>
+    </React.Fragment >
   )
 }
 

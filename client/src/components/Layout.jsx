@@ -3,7 +3,7 @@ import { Container } from '@mui/material'
 
 const Layout = (props) => {
   return (
-    <Container>
+    <Container maxWidth="xl">
       {props.children}
     </Container>
   );
