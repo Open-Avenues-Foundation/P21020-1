@@ -7,6 +7,7 @@ import Layout from "./components/Layout";
 import HomePage from "./pages/HomePage";
 import MessagePage from "./pages/MessagePage";
 import ErrorPage from "./pages/ErrorPage";
+import MessageLogPage from "./pages/MessageLogPage";
 
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
           <Switch>
             <Route exact path="/" component={HomePage} />
             <Route path="/message" component={MessagePage} />
+            <Route path="/message-logs" component={MessageLogPage} />
             <Route component={ErrorPage} />
           </Switch>
         </Router>

@@ -3,7 +3,7 @@ const Customer = require('./Customer')
 const Message = require('./Message')
 const db = require('../config/database')
 
-const customerMessage = db.define('customerMessage', {
+const CustomerMessage = db.define('customerMessage', {
   id: {
     type: Sequelize.INTEGER,
     autoIncrement: true,
@@ -23,4 +23,4 @@ const customerMessage = db.define('customerMessage', {
   }
 }, { paranoid: true })
 
-module.exports = customerMessage
+module.exports = CustomerMessage
