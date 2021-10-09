@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const { uploadCSV } = require('../controllers/csv/csv-controller.js')
+const { uploadCSV } = require('../controllers/csv-controller.js')
 const upload = require('../middleware/upload')
 
 // Upload a CSV file with customer data

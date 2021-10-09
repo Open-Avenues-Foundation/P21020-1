@@ -1,4 +1,4 @@
-const handleCSV = require('../../utilities/handle-csv')
+const handleCSV = require('../utilities/handle-csv')
 
 // Upload and save CSV file to database
 const uploadCSV = async (path, filename) => {

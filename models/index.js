@@ -1,7 +1,8 @@
 const Message = require('./Message')
 const Customer = require('./Customer')
+const customerMessage = require('./customerMessage')
 
-Customer.hasMany(Message)
-Message.belongsTo(Customer)
+Customer.belongsToMany(Message, { through: customerMessage })
+Message.belongsToMany(Customer, { through: customerMessage })
 
-module.exports = { Message, Customer }
+module.exports = { Message, Customer, customerMessage }

@@ -43,7 +43,7 @@ module.exports = {
       deletedAt: { type: Sequelize.DATE }
     })
 
-    return queryInterface.createTable('messages', {
+    await queryInterface.createTable('messages', {
       id: {
         type: Sequelize.INTEGER,
         autoIncrement: true,
@@ -52,18 +52,27 @@ module.exports = {
       text: {
         type: Sequelize.STRING
       },
+      createdAt: { type: Sequelize.DATE, defaultValue: Sequelize.literal('NOW()') },
+      updatedAt: { type: Sequelize.DATE, defaultValue: Sequelize.literal('NOW() ON UPDATE NOW()') },
+      deletedAt: { type: Sequelize.DATE }
+    })
+
+    return queryInterface.createTable('customerMessages', {
+      id: {
+        type: Sequelize.INTEGER,
+        autoIncrement: true,
+        primaryKey: true
+      },
       customerId: {
         type: Sequelize.INTEGER,
-        reference: { model: 'customers', key: 'id' }
+        references: { model: 'customers', key: 'id' }
       },
-      sent: {
-        type: Sequelize.BOOLEAN,
-        allowNull: false,
-        defaultValue: false
+      messageId: {
+        type: Sequelize.INTEGER,
+        references: { model: 'messages', key: 'id' }
       },
       dateSent: {
         type: Sequelize.DATEONLY,
-        allowNull: true
       },
       createdAt: { type: Sequelize.DATE, defaultValue: Sequelize.literal('NOW()') },
       updatedAt: { type: Sequelize.DATE, defaultValue: Sequelize.literal('NOW() ON UPDATE NOW()') },
@@ -72,6 +81,7 @@ module.exports = {
   },
 
   down: async (queryInterface, Sequelize) => {
+    await queryInterface.dropTable('customerMessages')
     await queryInterface.dropTable('messages')
     return queryInterface.dropTable('customers')
   }

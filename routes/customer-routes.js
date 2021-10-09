@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
-const { getCustomers, sendMessage } = require('../controllers/customers/customer-controller')
+const models = require('../models')
+const { getCustomers } = require('../controllers/customer-controller')
 
 // Get All Customers
 router.get('/', async (req, res) => {
@@ -14,16 +15,5 @@ router.get('/', async (req, res) => {
 
 });
 
-// Send a Message to A Specific Customer
-router.post('/message/:id', async (req, res) => {
-  const { id } = req.params
-  const { message } = req.body
-
-  if (!message) return res.status(404).send('Please provide a message to send')
-
-  const results = await sendMessage(id, message)
-  return res.status(results.status).send(results.message)
-
-})
 
 module.exports = router;
