@@ -8,6 +8,7 @@ import { Box } from "@mui/system";
 const CustomerTable = () => {
   const [customers, setCustomers] = useState([])
   const [selectedCustomers, setSelectedCustomers] = useState([])
+  const [notification, setNotificaiton] = useState('')
 
   useEffect(() => {
     fetchCustomers()
@@ -16,8 +17,12 @@ const CustomerTable = () => {
   const fetchCustomers = async () => {
     const fetch = await axios.get(`http://localhost:1337/api/customers/`)
 
-    console.log(fetch)
-    setCustomers(fetch.data)
+    if (fetch.status !== 200) {
+      setNotificaiton('Something went wrong...')
+    } else {
+      console.log(fetch)
+      setCustomers(fetch.data)
+    }
   }
 
   const updatedSelectedCustomers = (selection) => {
@@ -39,7 +44,7 @@ const CustomerTable = () => {
   // Render Table Component
   return (
     <React.Fragment>
-      <div style={{ height: 600, width: '100%' }}>
+      <div style={{ height: '60vh', width: '100%' }}>
         <div style={{ display: 'flex', height: '100%' }}>
           <div style={{ flexGrow: 1 }}>
             <DataGrid
@@ -51,14 +56,21 @@ const CustomerTable = () => {
           </div>
         </div>
         <Box sx={{ display: 'flex', gap: 2 }} >
-          <Link
-            style={{ textDecoration: 'none' }}
-            to={{
-              pathname: '/message',
-              state: { selectedCustomers }
-            }}>
-            <Button variant="outlined" sx={{ mt: 3 }}>Craft Message</Button>
-          </Link>
+
+          <Button
+            variant="outlined"
+            sx={{ mt: 3 }}
+            disabled={selectedCustomers.length > 0 ? false : true}
+          >
+            <Link
+              style={{ textDecoration: 'none', color: 'inherit' }}
+              to={{
+                pathname: selectedCustomers.length > 0 ? '/message' : '#',
+                state: { selectedCustomers }
+              }}>
+              Send Message
+            </Link>
+          </Button>
           <Link
             style={{ textDecoration: 'none' }}
             to={{

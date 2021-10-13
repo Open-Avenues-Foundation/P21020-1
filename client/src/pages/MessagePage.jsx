@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { useLocation } from 'react-router-dom'
-import { Box, TextField } from '@mui/material'
-import MessageTextBox from '../components/MessageTextBox';
+import { Box } from '@mui/material'
+import MessageTextBox from '../components/MessageTextBox/MessageTextBox';
 import Navbar from '../components/NavBar/NavBar';
-import { Container } from '@mui/material';
+import { Typography } from '@mui/material';
 
 
 const MessagePage = () => {
@@ -15,10 +15,12 @@ const MessagePage = () => {
   return (
     <React.Fragment>
       <Navbar />
-      <Container maxWidth="xl">
-        <h1>Craft a Message</h1>
+      <Box className='main-wrapper message-page'>
+        <Typography color='primary' variant="h2" fontWeight='bold' sx={{ textAlign: 'center' }}>
+          Send A Message
+        </Typography>
         <MessageTextBox selectedCustomers={selectedCustomers} />
-      </Container>
+      </Box>
     </React.Fragment>
   );
 };

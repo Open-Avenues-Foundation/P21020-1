@@ -1,0 +1,16 @@
+.form-wrapper{
+  display: flex;
+  align-items: stretch;
+  border: 1px solid #805ee3;
+  border-radius: 4px;
+}
+
+
+.form-filename{
+  min-width: min-content;
+  background-color: #f9f3fe;
+  padding: 0 1rem;
+  display: flex;
+  align-items: center;
+  color: #4b32b0;
+}
