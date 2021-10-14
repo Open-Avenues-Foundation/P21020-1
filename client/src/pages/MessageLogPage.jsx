@@ -1,20 +1,32 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import MessageTable from '../components/MesssageTable';
-import { useLocation } from 'react-router-dom'
 import Navbar from '../components/NavBar/NavBar';
-import { Container } from '@mui/material';
+import Box from '@mui/material/Box';
+import { Typography } from '@mui/material';
+import { useLocation } from 'react-router-dom'
+import Toast from '../components/Toast/Toast';
 
 
 
 const MessageLogPage = () => {
 
+  const data = useLocation()
+  const { isRedirect } = data.state ? data.state : false
+
+  console.log(data)
+
   return (
     <React.Fragment>
       <Navbar />
-      <Container maxWidth="xl">
-        <h1>Message Page</h1>
+      <Box className='main-wrapper'>
+        <Box className="top-content">
+          <Typography color='primary' variant="h2" fontWeight='bold'>
+            Message Log
+          </Typography>
+        </Box>
         <MessageTable />
-      </Container>
+        <Toast message={'Message Sent!'} isOpen={isRedirect ? true : false} />
+      </Box>
     </React.Fragment>
   );
 };

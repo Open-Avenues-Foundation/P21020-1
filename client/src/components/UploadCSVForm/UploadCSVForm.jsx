@@ -11,7 +11,6 @@ const UploadCSVForm = () => {
   const [selectedFile, setSelectedFile] = useState(null)
   const [fileNameDisplay, setFileNameDisplay] = useState('Upload CSV File')
   const [open, setOpen] = useState(false)
-  const [isError, setIsError] = useState(false)
   const [errorMssg, setErrorMsg] = useState('')
 
   const uploadFile = e => {
@@ -53,7 +52,6 @@ const UploadCSVForm = () => {
       })
       .catch(err => {
         console.log('CSV File upload error frontend', err)
-        setIsError(true)
         setOpen(true)
         setErrorMsg('Cannot upload File.')
       })

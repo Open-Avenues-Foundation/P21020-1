@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
-import { Box, TextField, Button } from '@mui/material';
+import { TextField, Button } from '@mui/material';
 import axios from 'axios'
+import { Redirect } from 'react-router-dom'
 
 const MessageTextBox = (props) => {
   const [messageText, setMessageText] = useState('')
   const [isMessage, setIsMessage] = useState(false)
+  const [isRedirect, setIsRedirect] = useState(false)
 
   const handleChange = e => {
     setMessageText(e.target.value)
@@ -22,12 +24,23 @@ const MessageTextBox = (props) => {
     axios.post('http://localhost:1337/api/message', data)
       .then(res => {
         console.log(res.statusText)
+        // Redirect to Message Log Page
+        setIsRedirect(true)
       })
       .catch(err => {
         console.log('Error sending text message', err)
       })
   }
 
+
+  if (isRedirect) {
+    return (
+      < Redirect to={{
+        pathname: '/message-logs',
+        state: { isRedirect }
+      }} />
+    )
+  }
 
   return (
     <React.Fragment>
@@ -42,6 +55,7 @@ const MessageTextBox = (props) => {
         fullWidth
         sx={{ maxWidth: '500px' }}
         margin='normal'
+        inputProps={{ maxLength: 160 }}
       />
       <Button
         sx={{ width: '100%', maxWidth: '500px' }}
@@ -51,6 +65,7 @@ const MessageTextBox = (props) => {
       >
         Send Message
       </Button>
+
     </React.Fragment >
   );
 };

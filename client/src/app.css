@@ -1,9 +1,12 @@
 body{
   margin: 0rem;
+  position: relative;
+  min-height: 100vh;
 }
 
 .main-wrapper{
-  margin: 2rem;
+  margin: 3rem 10%;
+  padding-bottom: 5rem;
 }
 
 .main-wrapper.message-page{

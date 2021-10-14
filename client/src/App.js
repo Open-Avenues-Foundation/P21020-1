@@ -1,15 +1,12 @@
 // Packages
 import React from "react";
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
-import Layout from "./components/Layout";
 
 // Components
 import HomePage from "./pages/HomePage";
 import MessagePage from "./pages/MessagePage";
 import ErrorPage from "./pages/ErrorPage";
 import MessageLogPage from "./pages/MessageLogPage";
-import { Container } from '@mui/material';
-
 
 function App() {
   return (

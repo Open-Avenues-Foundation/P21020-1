@@ -8,7 +8,6 @@ import { Box } from "@mui/system";
 const CustomerTable = () => {
   const [customers, setCustomers] = useState([])
   const [selectedCustomers, setSelectedCustomers] = useState([])
-  const [notification, setNotificaiton] = useState('')
 
   useEffect(() => {
     fetchCustomers()
@@ -18,7 +17,7 @@ const CustomerTable = () => {
     const fetch = await axios.get(`http://localhost:1337/api/customers/`)
 
     if (fetch.status !== 200) {
-      setNotificaiton('Something went wrong...')
+      // Set a Notifcation state here
     } else {
       console.log(fetch)
       setCustomers(fetch.data)

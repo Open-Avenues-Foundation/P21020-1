@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom'
 
 const Navbar = () => {
   return (
-    <AppBar color="primary" position="sticky" >
+    <AppBar color="primary" position="sticky">
       <Toolbar>
         <Link to={{
           pathname: '/',
