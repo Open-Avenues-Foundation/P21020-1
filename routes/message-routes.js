@@ -1,6 +1,18 @@
 const express = require('express')
 const router = express.Router()
-const { saveMessage, sendMessage } = require('../controllers/message-controller')
+const { getMessages, saveMessage, sendMessage } = require('../controllers/message-controller')
+
+router.get('/', async (req, res) => {
+
+  try {
+    const allMessages = await getMessages()
+    return res.send(allMessages)
+  } catch (error) {
+    console.log(error)
+    return res.status(400).send(error)
+  }
+
+});
 
 
 router.post('/', async (req, res) => {

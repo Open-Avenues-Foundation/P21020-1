@@ -1,11 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
-// import 'bootstrap/dist/css/bootstrap.min.css';
+import theme from './theme'
+import { ThemeProvider } from '@mui/material/styles';
+import './app.css'
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <ThemeProvider theme={theme}>
+      <App />
+    </ThemeProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );

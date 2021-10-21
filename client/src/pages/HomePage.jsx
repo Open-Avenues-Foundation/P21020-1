@@ -1,13 +1,23 @@
 import React from 'react';
-import UploadCSVForm from '../components/UploadCSVForm';
+import UploadCSVForm from '../components/UploadCSVForm/UploadCSVForm';
 import CustomerTable from '../components/CustomerTable';
+import Navbar from '../components/NavBar/NavBar';
+import Box from '@mui/material/Box';
+import { Typography } from '@mui/material';
 
 const HomePage = () => {
   return (
     <React.Fragment>
-      <h1>Privy Project Home Page</h1>
-      <UploadCSVForm />
-      <CustomerTable />
+      <Navbar />
+      <Box className="main-wrapper">
+        <Box className="top-content">
+          <Typography color='primary' variant="h2" fontWeight='bold'>
+            Customer Dashboard
+          </Typography>
+          <UploadCSVForm />
+        </Box>
+        <CustomerTable />
+      </Box>
     </React.Fragment>
   );
 };

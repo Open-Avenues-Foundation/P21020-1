@@ -1,0 +1,25 @@
+body{
+  margin: 0rem;
+  position: relative;
+  min-height: 100vh;
+}
+
+.main-wrapper{
+  margin: 3rem 10%;
+  padding-bottom: 5rem;
+}
+
+.main-wrapper.message-page{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.top-content{
+  margin-bottom: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+}

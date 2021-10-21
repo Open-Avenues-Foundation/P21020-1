@@ -1,9 +1,14 @@
 import React from 'react';
+import Navbar from '../components/NavBar/NavBar';
+import { Container } from '@mui/material';
 
 const NoMatch = () => {
   return (
     <div>
-      <h1>Page not found</h1>
+      <Navbar />
+      <Container maxWidth="xl">
+        <h1>Page not found</h1>
+      </Container>
     </div>
   );
 };

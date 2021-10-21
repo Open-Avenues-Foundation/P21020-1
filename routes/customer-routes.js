@@ -8,9 +8,9 @@ router.get('/', async (req, res) => {
 
   try {
     const allCustomers = await getCustomers()
-    return res.send(allCustomers)
+    return allCustomers ? res.send(allCustomers) : res.sendStatus(404).send('Cannot find Customers')
   } catch (error) {
-    return res.status(400).send('Cannot find customers!')
+    return res.status(500).send('Server Error. Something went wrong')
   }
 
 });
