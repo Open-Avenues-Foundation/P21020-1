@@ -4,10 +4,13 @@ import { DataGrid } from '@mui/x-data-grid'
 import { Button } from '@mui/material'
 import { Link } from 'react-router-dom'
 import { Box } from "@mui/system";
+import Toast from "./Toast/Toast";
 
 const CustomerTable = () => {
   const [customers, setCustomers] = useState([])
   const [selectedCustomers, setSelectedCustomers] = useState([])
+  // const [isDeleted, setIsDeleted] = useState(false)
+  const [open, setOpen] = useState(false)
 
   useEffect(() => {
     fetchCustomers()
@@ -15,19 +18,24 @@ const CustomerTable = () => {
 
   const fetchCustomers = async () => {
     const fetch = await axios.get(`/api/customers/`)
+    setCustomers(fetch.data)
+  }
 
-    if (fetch.status !== 200) {
-      // Set a Notifcation state here
-    } else {
-      console.log(fetch)
-      setCustomers(fetch.data)
+  const deleteCustomers = async () => {
+    try {
+      setOpen(false)
+      const data = { selectedCustomers }
+      await axios.delete('/api/customers/', { data })
+      setOpen(true)
+      fetchCustomers()
+    } catch (err) {
+      console.log(err)
     }
   }
 
   const updatedSelectedCustomers = (selection) => {
     // Filter customers by only currently selected rows by id
     const result = customers.filter(({ id }) => selection.includes(id));
-    console.log(result)
     setSelectedCustomers(result)
   }
 
@@ -77,8 +85,17 @@ const CustomerTable = () => {
             }}>
             <Button variant="outlined" sx={{ mt: 3 }}>Message Log</Button>
           </Link>
+          <Button
+            variant="outlined"
+            color="error"
+            sx={{ mt: 3, ml: 'auto' }}
+            disabled={selectedCustomers.length > 0 ? false : true}
+            onClick={deleteCustomers}
+          >
+            Delete
+          </Button>
         </Box>
-
+        {open ? <Toast message={'Customer(s) Deleted'} isOpen={open} /> : null}
       </div>
     </React.Fragment >
   )

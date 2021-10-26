@@ -21,7 +21,6 @@ router.delete('/', async (req, res) => {
 
   try {
     const result = await deleteCustomers(selectedCustomers)
-
     return result ? res.status(200).json({ message: "Customer(s) deleted from database" }) : res.status(400).json({ error: 'No customers found to delete' })
   } catch (err) {
     return res.status(500).json({ err: err.message })
