@@ -9,7 +9,10 @@
     "dev:client:build": "cd client && npm run build",
     "dev:server": " npm run dev:client:build && nodemon server.js",
     "dev:migrate": "./node_modules/.bin/sequelize db:migrate --env development --config ./config/sequelize.js",
-    "dev:reset": "./node_modules/.bin/sequelize db:migrate:undo:all --env development --config ./config/sequelize.js"
+    "dev:reset": "./node_modules/.bin/sequelize db:migrate:undo:all --env development --config ./config/sequelize.js",
+    "prod:migrate": "sequelize db:migrate --env production --config ./config/sequelize.js",
+    "build": "npm run prod:migrate && cd client && npm install && npm run build",
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",

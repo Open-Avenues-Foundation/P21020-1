@@ -25,7 +25,7 @@ const MessageTable = () => {
   }, [])
 
   const fetchMessages = async () => {
-    const fetch = await axios.get(`http://localhost:1337/api/message`)
+    const fetch = await axios.get(`/api/message`)
 
     console.log(fetch)
     setMessages(fetch.data)
@@ -35,7 +35,7 @@ const MessageTable = () => {
     console.log(messageData)
     const data = { message: messageData.text, selectedCustomers: messageData.customers }
     console.log(data)
-    axios.post('http://localhost:1337/api/message', data)
+    axios.post('/api/message', data)
       .then(res => {
         console.log(res.statusText)
         setIsRedirect(true)

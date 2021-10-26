@@ -14,7 +14,7 @@ const CustomerTable = () => {
   }, [])
 
   const fetchCustomers = async () => {
-    const fetch = await axios.get(`http://localhost:1337/api/customers/`)
+    const fetch = await axios.get(`/api/customers/`)
 
     if (fetch.status !== 200) {
       // Set a Notifcation state here

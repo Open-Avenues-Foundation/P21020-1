@@ -21,7 +21,7 @@ const MessageTextBox = (props) => {
   const sendMessage = () => {
     const data = { message: messageText, selectedCustomers: props.selectedCustomers }
     console.log(data)
-    axios.post('http://localhost:1337/api/message', data)
+    axios.post('/api/message', data)
       .then(res => {
         console.log(res.statusText)
         // Redirect to Message Log Page
