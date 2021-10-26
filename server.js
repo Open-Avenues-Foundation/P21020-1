@@ -37,7 +37,7 @@ app.all('*', (req, res) => res.sendFile(path.resolve(__dirname, 'client/public',
 
 
 // Port
-const port = 1337
+const port = process.env.PORT || 1337
 app.listen(port, () => {
   console.log(`Running at localhost:${port}`)
 })
