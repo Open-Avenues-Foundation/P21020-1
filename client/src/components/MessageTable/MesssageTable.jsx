@@ -137,8 +137,8 @@ const MessageTable = () => {
             <TableRow>
               <StyledTableCell width='5%' />
               <StyledTableCell width='15%' align="center">Message Id</StyledTableCell>
-              <StyledTableCell width='40%'>Message</StyledTableCell>
-              <StyledTableCell width='20%' align="center">Date</StyledTableCell>
+              <StyledTableCell width='40%' >Message</StyledTableCell>
+              <StyledTableCell width='20%' sx={{ minWidth: '150px' }} align="center">Date</StyledTableCell>
               <StyledTableCell width='20%' align="center"></StyledTableCell>
             </TableRow>
           </TableHead>
