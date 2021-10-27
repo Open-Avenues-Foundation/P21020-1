@@ -1,5 +1,5 @@
 import React from 'react';
-import MessageTable from '../components/MesssageTable';
+import MessageTable from '../components/MessageTable/MesssageTable';
 import Navbar from '../components/NavBar/NavBar';
 import Box from '@mui/material/Box';
 import { Typography } from '@mui/material';
@@ -25,7 +25,7 @@ const MessageLogPage = () => {
           </Typography>
         </Box>
         <MessageTable />
-        <Toast message={'Message Sent!'} isOpen={isRedirect ? true : false} />
+        <Toast message={'Message Sent!'} isOpen={isRedirect} />
       </Box>
     </React.Fragment>
   );
