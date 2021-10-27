@@ -1,8 +1,17 @@
 # UHart Web Dev Bootcamp Industry Project - Privy Customer Messaging Tool
 
-This projects aims to help small ecommerce stores by implementing a tool to help increase their sales. This is will be achieved by implementing a CRM dashboard, allowing merchants to send personalized SMS to thier customers. This project will be composed of multiple pieces, databases, back end, front end, and API requests. 
+This projects aims to help small ecommerce stores by implementing a tool to help increase their sales. This will be achieved by implementing a CRM dashboard, allowing merchants to send personalized SMS to thier customers. This project will be composed of multiple pieces, databases, back end, front end, and API requests. 
 
-🔗 **Live preview:** [here](https://privy-kevinsalina.herokuapp.com/)
+
+## Demo
+
+### Live Preview
+
+Please allow app 30 secs to load from cold start. To use live demo, please download a sample customer CSV file <a href="resources/static/assets/mocks/CSV-customers - Sheet1.csv" download>Here</a>
+
+🔗 **Live preview:** [here](https://privy-kevinsalina.herokuapp.com/) 
+
+
 
 ## Built with
 
