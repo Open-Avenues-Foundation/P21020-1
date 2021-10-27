@@ -1,24 +1,28 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { DataGrid } from '@mui/x-data-grid'
-import { Button } from '@mui/material'
-import { Link } from 'react-router-dom'
-import { Box } from "@mui/system";
-import Toast from "./Toast/Toast";
+import Toast from "../Toast/Toast";
+import TableActionsButtons from "../TableActionButtons/TableActionsButtons";
 
 const CustomerTable = () => {
   const [customers, setCustomers] = useState([])
   const [selectedCustomers, setSelectedCustomers] = useState([])
-  // const [isDeleted, setIsDeleted] = useState(false)
   const [open, setOpen] = useState(false)
+  const [tstMsg, setTstMsg] = useState('')
 
   useEffect(() => {
     fetchCustomers()
   }, [])
 
   const fetchCustomers = async () => {
-    const fetch = await axios.get(`/api/customers/`)
-    setCustomers(fetch.data)
+    try {
+      const fetch = await axios.get(`/api/customers/`)
+      setCustomers(fetch.data)
+    } catch (err) {
+      console.log(err)
+      setOpen(true)
+      setTstMsg('Cannot fetch customers from DB.')
+    }
   }
 
   const deleteCustomers = async () => {
@@ -27,9 +31,12 @@ const CustomerTable = () => {
       const data = { selectedCustomers }
       await axios.delete('/api/customers/', { data })
       setOpen(true)
+      setTstMsg('Customer(s) deleted.')
       fetchCustomers()
     } catch (err) {
       console.log(err)
+      setOpen(true)
+      setTstMsg('Cannot delete customers.')
     }
   }
 
@@ -50,9 +57,9 @@ const CustomerTable = () => {
 
   // Render Table Component
   return (
-    <React.Fragment>
-      <div style={{ height: '60vh', width: '100%' }}>
-        <div style={{ display: 'flex', height: '100%' }}>
+    <>
+      <div style={{ height: 'auto', width: '100%' }}>
+        <div style={{ display: 'flex', height: '60vh' }}>
           <div style={{ flexGrow: 1 }}>
             <DataGrid
               checkboxSelection
@@ -62,42 +69,13 @@ const CustomerTable = () => {
             />
           </div>
         </div>
-        <Box sx={{ display: 'flex', gap: 2 }} >
 
-          <Button
-            variant="outlined"
-            sx={{ mt: 3 }}
-            disabled={selectedCustomers.length > 0 ? false : true}
-          >
-            <Link
-              style={{ textDecoration: 'none', color: 'inherit' }}
-              to={{
-                pathname: selectedCustomers.length > 0 ? '/message' : '#',
-                state: { selectedCustomers }
-              }}>
-              Send Message
-            </Link>
-          </Button>
-          <Link
-            style={{ textDecoration: 'none' }}
-            to={{
-              pathname: '/message-logs'
-            }}>
-            <Button variant="outlined" sx={{ mt: 3 }}>Message Log</Button>
-          </Link>
-          <Button
-            variant="outlined"
-            color="error"
-            sx={{ mt: 3, ml: 'auto' }}
-            disabled={selectedCustomers.length > 0 ? false : true}
-            onClick={deleteCustomers}
-          >
-            Delete
-          </Button>
-        </Box>
-        {open ? <Toast message={'Customer(s) Deleted'} isOpen={open} /> : null}
+        {/* Table Action Buttons */}
+        <TableActionsButtons selectedCustomers={selectedCustomers} deleteCustomers={deleteCustomers} />
+        {/* Toast Notificaiotn on customer delete */}
+        {open ? <Toast message={tstMsg} isOpen={open} /> : null}
       </div>
-    </React.Fragment >
+    </>
   )
 }
 
