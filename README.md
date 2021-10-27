@@ -27,7 +27,7 @@ To use live demo, please download a sample customer CSV file <a href="/resources
 
 
 ##### Steps
-* Clone main repo to local machine.
+* Fork & Clone main repo to local machine.
 * **Install Dependencies**
     * **Server Side**
         * Run `npm install` in root directory
