@@ -48,10 +48,10 @@ const CustomerTable = () => {
 
   const columns = [
     { field: 'id', headerName: 'ID', flex: 'shrink' },
-    { field: 'firstName', headerName: 'First Name', flex: 1 },
-    { field: 'lastName', headerName: 'Last Name', flex: 1 },
-    { field: 'lastOrderDate', headerName: 'Last Order Date', flex: 1, type: 'date' },
-    { field: 'lastOrderPrice', headerName: 'Last Order Price', flex: 1, type: 'number' }
+    { field: 'firstName', headerName: 'First Name', flex: 1, minWidth: 150 },
+    { field: 'lastName', headerName: 'Last Name', flex: 1, minWidth: 150 },
+    { field: 'lastOrderDate', headerName: 'Last Order Date', flex: 1, type: 'date', minWidth: 150 },
+    { field: 'lastOrderPrice', headerName: 'Last Order Price', flex: 1, type: 'number', minWidth: 150 }
 
   ]
 
