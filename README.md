@@ -13,10 +13,10 @@ To use live demo, please download a sample customer CSV file <a href="/resources
 
 * Once the app loads, you can upload the CSV data, and the customers will appear in the data grid.
 * You can search and filter through customers, making seletions by clicking the box on the the left side of each row.
-* After a group of customers is selected, click 'Send Message' button to be brought the the message page. Click the 'Delete' button to delete the selection from the database.
+* After a group of customers is selected, click 'Send Message' button to be brought to the message page. Click the 'Delete' button to delete the selection from the database.
 * Once a message is sent, you will be redirect to the message log page, that shows a history of the messages sent.
 
-**Please Note** - the Twilio API is linked to a trial account that can only send SMS messages to verified phone numbers. To link you own Twilio account, please follow steps [below](###download-app).
+**Please Note** - the Twilio API is linked to a trial account that can only send SMS messages to verified phone numbers. To link you own Twilio account, please follow steps below to download app.
 
 ### Download App
 
@@ -44,6 +44,7 @@ GRANT ALL ON [database].* TO '[username]'@'localhost';
 ```
 * Set database enviromental variables:
     * Create a .env file in main directory. Use .env-sample file as guide.
+    
     ```
     DB_USERNAME
     DB_PASSWORD
