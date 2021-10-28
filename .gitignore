@@ -1,6 +1,5 @@
 node_modules
 .DS_Store
 .env
-/resources/static/assets/uploads/*
 CRM-example.png
 /client/package-lock.json

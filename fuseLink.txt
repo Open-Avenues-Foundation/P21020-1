@@ -1,9 +1,0 @@
-https://github.com/Open-Avenues-Foundation/P21020-1.
-
-Git Clone Repo.
-Run 'npm i' in main directory and in client folder.
-Create .env file using .env-sample as guide (If needed, sign up for a Twilio trial account and add API keys.)
-Need to create a new database in MySQL and connect via localhost.
-
-run 'npm start dev' in main root. 
-React app should fire up, followed by backend express server. 

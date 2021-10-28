@@ -6,5 +6,17 @@ const getCustomers = async () => {
   return await models.Customer.findAll()
 }
 
+// Delete Customer(s)
+const deleteCustomers = async (customers) => {
 
-module.exports = { getCustomers }
+  const customerIds = customers.map(customer => customer.id)
+
+  return await models.Customer.destroy({
+    where: {
+      id: customerIds
+    }
+  })
+}
+
+
+module.exports = { getCustomers, deleteCustomers }

@@ -1,45 +1,36 @@
 import React, { useState } from 'react';
-import { TextField, Button } from '@mui/material';
+import { useHistory } from 'react-router-dom'
 import axios from 'axios'
-import { Redirect } from 'react-router-dom'
+import { TextField, Button } from '@mui/material';
+import Toast from '../Toast/Toast';
 
 const MessageTextBox = (props) => {
   const [messageText, setMessageText] = useState('')
-  const [isMessage, setIsMessage] = useState(false)
-  const [isRedirect, setIsRedirect] = useState(false)
+  const [tstMsg, setTstMsg] = useState('')
+  const [open, setOpen] = useState(false)
+
+  let history = useHistory()
 
   const handleChange = e => {
     setMessageText(e.target.value)
-
-    if (e.target.value.length > 0) {
-      setIsMessage(true)
-    } else {
-      setIsMessage(false)
-    }
   }
 
   const sendMessage = () => {
+    setOpen(false)
+
     const data = { message: messageText, selectedCustomers: props.selectedCustomers }
     console.log(data)
     axios.post('/api/message', data)
       .then(res => {
         console.log(res.statusText)
         // Redirect to Message Log Page
-        setIsRedirect(true)
+        history.push('/message-logs', { isRedirect: true })
       })
       .catch(err => {
         console.log('Error sending text message', err)
+        setTstMsg('Cannot send text. Please try again.')
+        setOpen(true)
       })
-  }
-
-
-  if (isRedirect) {
-    return (
-      < Redirect to={{
-        pathname: '/message-logs',
-        state: { isRedirect }
-      }} />
-    )
   }
 
   return (
@@ -61,11 +52,11 @@ const MessageTextBox = (props) => {
         sx={{ width: '100%', maxWidth: '500px' }}
         variant="contained"
         onClick={sendMessage}
-        disabled={!isMessage}
+        disabled={messageText.length <= 0}
       >
         Send Message
       </Button>
-
+      {open ? <Toast message={tstMsg} isOpen={open} /> : null}
     </React.Fragment >
   );
 };
