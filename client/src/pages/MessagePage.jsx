@@ -4,7 +4,6 @@ import { Box } from '@mui/material'
 import MessageTextBox from '../components/MessageTextBox/MessageTextBox';
 import Navbar from '../components/NavBar/NavBar';
 import { Typography } from '@mui/material';
-import Footer from '../components/Footer/Footer';
 
 
 const MessagePage = () => {
@@ -22,7 +21,6 @@ const MessagePage = () => {
         </Typography>
         <MessageTextBox selectedCustomers={selectedCustomers} />
       </Box>
-      <Footer />
     </React.Fragment>
   );
 };

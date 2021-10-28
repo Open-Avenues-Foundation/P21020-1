@@ -14,36 +14,38 @@ import Collapse from '@mui/material/Collapse';
 import { styled } from '@mui/material/styles';
 import { Box } from "@mui/system";
 import { Button } from "@mui/material";
-import Toast from "./Toast/Toast";
+import Toast from "../Toast/Toast";
 
 const MessageTable = () => {
   const [messages, setMessages] = useState([])
-  const [isRedirect, setIsRedirect] = useState(false)
+  const [open, setOpen] = useState(false)
+  const [tstMsg, setTstMsg] = useState('')
 
   useEffect(() => {
+    setOpen(false)
     fetchMessages()
   }, [])
 
   const fetchMessages = async () => {
     const fetch = await axios.get(`/api/message`)
-
-    console.log(fetch)
     setMessages(fetch.data)
   }
 
-  const sendMessage = (messageData) => {
-    console.log(messageData)
-    const data = { message: messageData.text, selectedCustomers: messageData.customers }
-    console.log(data)
-    axios.post('/api/message', data)
-      .then(res => {
-        console.log(res.statusText)
-        setIsRedirect(true)
-        fetchMessages()
-      })
-      .catch(err => {
-        console.log('Error sending text message', err)
-      })
+  const sendMessage = async (messageData) => {
+    setOpen(false)
+    try {
+      const data = { message: messageData.text, selectedCustomers: messageData.customers }
+      const result = await axios.post('/api/message', data)
+      console.log(result)
+      setOpen(true)
+      setTstMsg('Message Sent!')
+      fetchMessages()
+    } catch (err) {
+      console.log('Error sending text message', err.message)
+      setOpen(true)
+      setTstMsg('Cannot send message.')
+
+    }
   }
 
   const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -66,8 +68,6 @@ const MessageTable = () => {
     },
   }));
 
-  const rows = messages
-
   const Row = (props) => {
     const { row } = props
     const [open, setOpen] = useState(false)
@@ -82,7 +82,7 @@ const MessageTable = () => {
           </StyledTableCell>
           <StyledTableCell align="center" component="th" scope="row">{row.id}</StyledTableCell>
           <StyledTableCell >{row.text}</StyledTableCell>
-          <StyledTableCell align="center">{row.customers[0].customerMessage.dateSent}</StyledTableCell>
+          <StyledTableCell align="center">{row.createdAt.substring(0, 10)}</StyledTableCell>
           <StyledTableCell align="center">
             <Button
               variant="outlined"
@@ -109,11 +109,12 @@ const MessageTable = () => {
                   </TableHead>
                   <TableBody>
                     {row.customers.map(customer => {
+                      const { id, firstName, lastName, customerMessage: { dateSent } } = customer
                       return (
-                        <TableRow key={customer.id}>
-                          <TableCell component="th" scope="row">{customer.id}</TableCell>
-                          <TableCell>{`${customer.firstName} ${customer.lastName}`}</TableCell>
-                          <TableCell>{customer.customerMessage.dateSent}</TableCell>
+                        <TableRow key={id}>
+                          <TableCell component="th" scope="row">{id}</TableCell>
+                          <TableCell>{`${firstName} ${lastName}`}</TableCell>
+                          <TableCell>{dateSent}</TableCell>
                         </TableRow>
                       )
                     })}
@@ -127,7 +128,6 @@ const MessageTable = () => {
     )
   }
 
-
   // Render Table Component
   return (
     <React.Fragment>
@@ -137,13 +137,13 @@ const MessageTable = () => {
             <TableRow>
               <StyledTableCell width='5%' />
               <StyledTableCell width='15%' align="center">Message Id</StyledTableCell>
-              <StyledTableCell width='40%'>Message</StyledTableCell>
-              <StyledTableCell width='20%' align="center">Date</StyledTableCell>
+              <StyledTableCell width='40%' >Message</StyledTableCell>
+              <StyledTableCell width='20%' sx={{ minWidth: '150px' }} align="center">Date</StyledTableCell>
               <StyledTableCell width='20%' align="center"></StyledTableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows.map(row => {
+            {messages.map(row => {
               return (
                 <Row key={row.id} row={row} />
               )
@@ -151,7 +151,7 @@ const MessageTable = () => {
           </TableBody>
         </Table >
       </TableContainer >
-      {isRedirect ? <Toast message={'Message Sent!'} isOpen={isRedirect} /> : null}
+      {open ? <Toast message={tstMsg} isOpen={open} /> : null}
     </React.Fragment>
   )
 }

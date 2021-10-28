@@ -1,6 +1,6 @@
 import React from 'react';
 import UploadCSVForm from '../components/UploadCSVForm/UploadCSVForm';
-import CustomerTable from '../components/CustomerTable';
+import CustomerTable from '../components/CustomerTable/CustomerTable';
 import Navbar from '../components/NavBar/NavBar';
 import Box from '@mui/material/Box';
 import { Typography } from '@mui/material';

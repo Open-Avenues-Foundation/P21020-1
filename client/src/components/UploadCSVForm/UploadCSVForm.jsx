@@ -45,7 +45,7 @@ const UploadCSVForm = () => {
   const sendFile = () => {
     const data = new FormData()
     data.append('file', selectedFile)
-    axios.post('http://localhost:1337/api/csv/upload', data)
+    axios.post('/api/csv/upload', data)
       .then(res => {
         console.log(res.statusText)
         window.location.reload()
